@@ -9,9 +9,13 @@ class DeviceBluotoothViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     private val binding = ItemDeviceBluetoothBinding.bind(view)
 
-    fun bind(item: DeviceBluetooth) {
+    fun bind(item: DeviceBluetooth, listener: (DeviceBluetooth) -> Unit) {
         binding.apply {
-
+            txtName.text = item.name
+            txtAddress.text = item.address
+            root.setOnClickListener {
+                listener(item)
+            }
         }
     }
 
