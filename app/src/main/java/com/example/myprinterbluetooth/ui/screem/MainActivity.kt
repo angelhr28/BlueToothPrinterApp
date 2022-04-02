@@ -10,6 +10,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.example.myprinterbluetooth.databinding.ActivityMainBinding
 import com.example.myprinterbluetooth.utils.BluetoothDriver
+import com.example.myprinterbluetooth.utils.PrinterDriver
 import com.example.myprinterbluetooth.utils.toast
 import com.example.myprinterbluetooth.utils.validatePermission
 
@@ -37,6 +38,7 @@ class MainActivity : AppCompatActivity() {
         startForResult.launch(Intent(this, DeviceBluetoothActivity::class.java))
 
     private fun onPressPrinter(text: String) {
+        val printer = PrinterDriver(this, text, bluetoothDriver)
         // Imprime los escrito en el text
     }
 

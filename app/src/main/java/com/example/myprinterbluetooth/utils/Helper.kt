@@ -26,3 +26,4 @@ fun validatePermission(permission: String, context: Context): Boolean {
     }
     return true
 }
+

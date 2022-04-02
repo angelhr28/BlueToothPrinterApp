@@ -13,16 +13,16 @@ import java.util.*
 class BluetoothDriver(private val context: Context) {
     // Para la operaciones con dispositivos bluetooth
     lateinit var bluetoothAdapter: BluetoothAdapter
+    lateinit var bluetoothSocket: BluetoothSocket
+    private lateinit var bluetoothDevice: BluetoothDevice
 
-    private var bluetoothDevice: BluetoothDevice? = null
-    private var bluetoothSocket: BluetoothSocket? = null
+    // Para el flujo de datos de entrada y salida del socket bluetooth
+    private lateinit var inputStream: InputStream
+    lateinit var outputStream: OutputStream
 
     // identificador unico default
     private val aplicacionUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB")
 
-    // Para el flujo de datos de entrada y salida del socket bluetooth
-    private var outputStream: OutputStream? = null
-    private var inputStream: InputStream? = null
 
     fun initSet() {
         val bluetoothManager =
@@ -37,12 +37,12 @@ class BluetoothDriver(private val context: Context) {
         try {
             // Conectamos los dispositivos
             bluetoothSocket =
-                bluetoothDevice?.createRfcommSocketToServiceRecord(
+                bluetoothDevice.createRfcommSocketToServiceRecord(
                     aplicacionUUID
                 )
-            bluetoothSocket?.connect() // conectamos el socket
-            outputStream = bluetoothSocket?.outputStream
-            inputStream = bluetoothSocket?.inputStream
+            bluetoothSocket.connect() // conectamos el socket
+            outputStream = bluetoothSocket.outputStream
+            inputStream = bluetoothSocket.inputStream
 
             listener("Dispositivo Conectado $name")
         } catch (e: Exception) {
